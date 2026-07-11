@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Large / generated model files (download or train separately — see README Setup)
+models/*.dat
+models/*.keras
+
+# Datasets (too large for git, and not original work)
+raw_dataset/
+dataset/
+
+# Runtime-generated logs
+logs/*.csv
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/

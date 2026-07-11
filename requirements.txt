@@ -1,0 +1,14 @@
+# dlib is NOT installed from here — install it FIRST from a prebuilt wheel
+# matching your Python version (see README "Setup" section), then run:
+#   pip install -r requirements.txt
+# Pinning dlib here would make pip try to compile it from source and fail
+# on Python 3.12/3.13 without Visual Studio Build Tools.
+opencv-python>=4.10.0
+imutils==0.5.4
+scipy>=1.14.0
+numpy>=1.26.4,<2.2
+tensorflow>=2.21.0
+scikit-learn>=1.5.0
+pandas>=2.2.0
+streamlit>=1.38.0
+playsound==1.2.2
