@@ -76,7 +76,7 @@ drowsiness-detection-cnn/
 ### 1. Clone and set up the environment
 
 ```bash
-git clone https://github.com/<your-username>/drowsiness-detection-cnn.git
+git clone https://github.com/Nikhil-Dagar/drowsiness-detection-cnn.git
 cd drowsiness-detection-cnn
 python -m venv venv
 venv\Scripts\activate        # Windows (cmd)
