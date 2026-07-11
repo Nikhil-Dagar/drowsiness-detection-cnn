@@ -12,6 +12,7 @@ which has no webcam access — fine for local demos and portfolio videos).
 import os
 import sys
 import time
+import threading
 
 import cv2
 import imutils
@@ -32,8 +33,7 @@ from landmarks import (  # noqa: E402
     RIGHT_EYE_IDX,
     MOUTH_IDX,
 )
-from detect import log_event, LOG_PATH  # noqa: E402
-
+from detect import log_event, LOG_PATH, play_alarm, ALARM_REPEAT_SECONDS  # noqa: E402
 LANDMARK_MODEL_PATH = os.path.join("models", "shape_predictor_68_face_landmarks.dat")
 CNN_MODEL_PATH = os.path.join("models", "eye_state_cnn.keras")
 
@@ -91,6 +91,7 @@ if run_detection:
         yawn_frame_count = 0
         drowsy_alert_active = False
         yawn_alert_active = False
+        last_alarm_time = 0.0
 
         while run_detection and cap.isOpened():
             ret, frame = cap.read()
@@ -127,9 +128,16 @@ if run_detection:
 
                 if eyes_closed:
                     closed_frame_count += 1
-                    if closed_frame_count >= consec_closed_frames and not drowsy_alert_active:
-                        drowsy_alert_active = True
-                        log_event("DROWSY_START", f"eye_open_prob={avg_open_prob:.2f}")
+                    if closed_frame_count >= consec_closed_frames:
+                        now = time.time()
+                        if not drowsy_alert_active:
+                            drowsy_alert_active = True
+                            log_event("DROWSY_START", f"eye_open_prob={avg_open_prob:.2f}")
+                            threading.Thread(target=play_alarm, daemon=True).start()
+                            last_alarm_time = now
+                        elif now - last_alarm_time >= ALARM_REPEAT_SECONDS:
+                            threading.Thread(target=play_alarm, daemon=True).start()
+                            last_alarm_time = now
                 else:
                     if drowsy_alert_active:
                         log_event("DROWSY_END")
