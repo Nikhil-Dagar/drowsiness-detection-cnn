@@ -142,10 +142,6 @@ streamlit run app.py
 Press `q` to quit the OpenCV window, or untick "Start Detection" in the
 Streamlit sidebar.
 
-## 📸 Screenshots
-
-> Add screenshots/GIFs of the OpenCV window and the Streamlit dashboard here.
-
 ## 🔮 Future Improvements
 
 - Head-pose estimation as a third drowsiness signal
